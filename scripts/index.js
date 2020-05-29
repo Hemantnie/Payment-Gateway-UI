@@ -12,10 +12,10 @@ class UI {
         const list = document.getElementById('card-list');
         const row = document.createElement('tr');
         row.innerHTML = `
+            <td><a href="#" class="delete">X<a></td>
             <td>${card.cardNumber}</td>
             <td>${card.cvv}</td>
             <td>${card.expireyDate}</td>
-            <td><a href="#" class="delete">X<a></td>
         `;
 
         list.appendChild(row);
@@ -50,6 +50,50 @@ class UI {
 
 }
 
+//Local Storeage for card deatils
+
+class Store {
+    static getCards() {
+        let cards;
+        if (localStorage.getItem('cards') === null) {
+            cards = [];
+        } else {
+            cards = JSON.parse(localStorage.getItem('cards'))
+        }
+
+        return cards;
+    }
+
+    static displayCards() {
+        const cards = Store.getCards();
+
+        cards.forEach(function (card) {
+            const ui = new UI;
+            ui.addCardTolist(card);
+        })
+    }
+
+    static addCard(card) {
+        const cards = Store.getCards();
+        cards.push(card);
+        localStorage.setItem('cards', JSON.stringify(cards));
+    }
+
+    static removeCard(cardNumber) {
+        const cards = Store.getCards();
+
+        cards.forEach(function (card, index) {
+            if (card.cardNumber === cardNumber) {
+                cards.splice(index, 1);
+            }
+        })
+
+        localStorage.setItem('cards', JSON.stringify(cards));
+    }
+}
+
+document.addEventListener('DOMContentLoaded', Store.displayCards());
+
 //eventlister for add card
 document.getElementById('card-deatils').addEventListener('submit',
     function (e) {
@@ -65,6 +109,7 @@ document.getElementById('card-deatils').addEventListener('submit',
             ui.showAlert('Please fill in the card details properly', 'error');
         } else {
             ui.addCardTolist(card);
+            Store.addCard(card);
             ui.showAlert('Card Added!', 'success');
             ui.clearFields();
         }
@@ -85,6 +130,9 @@ document.getElementById('card-list').addEventListener('click',
         const ui = new UI();
 
         ui.deleteCard(e.target);
+
+        // Remove from LS
+        Store.removeCard(e.target.parentElement.nextElementSibling.textContent);
 
         ui.showAlert('Card Removed!', 'success');
     }
