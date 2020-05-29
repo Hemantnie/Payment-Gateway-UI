@@ -13,12 +13,48 @@
 
 <body>
     <div class="header">Payment Gateway UI</div>
-    <div class="body">
-        <div class="left">
-
-        </div>
-        <div class="right">
-
+    <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <div class="card-panel">
+                    <div class="row my-container">
+                        <form id="card-deatils" class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input placeholder="Enter Card Number" id="card-number" type="text"
+                                        class="validate">
+                                    <label for="card-number">Card Number</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="CVV" id="cvv" type="text" class="validate">
+                                    <label for="cvv">CVV</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="ex_date" type="date" class="validate">
+                                    <label for="ex_date"></label>
+                                </div>
+                            </div>
+                            <input type="submit" value="Save card" class="btn">
+                            <a id="clear-button" class="waves-effect waves-light btn">Clear</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6 display-area">
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Card Number</th>
+                            <th>CVV</th>
+                            <th>Expiry Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="card-list"></tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.js"
