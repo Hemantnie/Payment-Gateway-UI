@@ -1,3 +1,20 @@
+function Emitter() {
+    this.event = {};
+}
+
+Emitter.prototype.emit = function (eventName) {
+
+    const listOfFunction = this.event.eventName || [];
+
+    listOfFunction.forEach(callback => {
+        callback();
+    });
+}
+
+Emitter.prototype.on = function (eventName, callback) {
+    this.event.eventName = this.event.eventName || [];
+    this.event.eventName.push(callback)
+}
 
 class Card {
     constructor(cardNumber, cvv, expireyDate) {
@@ -94,9 +111,16 @@ class Store {
 
 document.addEventListener('DOMContentLoaded', Store.displayCards());
 
+
+//Adding event listers for few events
+
+const emitter = new Emitter();
+
+
 //eventlister for add card
 document.getElementById('card-deatils').addEventListener('submit',
     function (e) {
+        this.emitter.emit('message')
         const cardNumber = document.getElementById('card-number').value;
         const cvv = document.getElementById('cvv').value;
         const expireyDate = document.getElementById('ex_date').value;
