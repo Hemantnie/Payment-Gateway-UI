@@ -18,23 +18,25 @@
             <div class="col s6">
                 <div class="card-panel">
                     <div class="row my-container">
-                        <form id="card-deatils" class="col s12">
+                        <form id="card-deatils" class="col s12 validate">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input placeholder="Enter Card Number" id="card-number" type="text" maxlength="16"
+                                    <input placeholder="XXXX XXXX XXXX XXXX" id="card_number" type="text" required
+                                        onkeypress="return isNumberKey(event)" title="Please include only numbers"
                                         class="validate">
-                                    <label for="card-number">Card Number</label>
+                                    <label for="card_number">Card Number</label>
                                     <i id=cardTypeIcon aria-hidden="true"></i>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <input placeholder="CVV" id="cvv" type="text" class="validate">
+                                    <input placeholder="CVV" id="cvv" type="text" class="validate" required disabled
+                                        maxlength="4" onkeypress="return isNumberKey(event)">
                                     <label for="cvv">CVV</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="ex_date" type="date" class="validate">
-                                    <label for="ex_date" class="active">Expiry Date</label>
+                                    <input id="ex_date" type="month" class="validate" disabled>
+                                    <label for="ex_date" class="active">Expiry Date(YYYY/MM)</label>
                                 </div>
                             </div>
                             <input type="submit" value="Save card" class="btn">
